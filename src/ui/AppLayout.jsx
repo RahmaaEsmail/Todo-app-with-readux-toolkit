@@ -11,8 +11,8 @@ import Row from "./Row"
 
 function AppLayout() {
     const [status , setStatus] = useState("all")
-    let filteredList = useSelector(state => state.task.list.filter(item =>item.status === status ))
     const list = useSelector(state =>state.task.list)
+    let filteredList = useSelector(state => state.task.list.filter(item =>item.status === status ))
 
     if(status === 'all') {
         filteredList = list
