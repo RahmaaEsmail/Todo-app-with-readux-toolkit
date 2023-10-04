@@ -3,7 +3,7 @@ import { getDataFromLocalStorage, setDataToLocalStorage } from "./hooks/useLocal
 
 
 const initialState = {
-    list: JSON.parse(getDataFromLocalStorage("List", []))
+    list: getDataFromLocalStorage("List", [])
 }
 
 const taskSlice = createSlice({
@@ -13,12 +13,12 @@ const taskSlice = createSlice({
         addTask(state,action) {
             state.list.push(action.payload)
 
-            setDataToLocalStorage("List",JSON.stringify(state.list))
+            setDataToLocalStorage("List", state.list)
         },
         deleteTask(state, action) {
            state.list = state.list.filter(item => item.id !== action.payload)
 
-          setDataToLocalStorage("List",JSON.stringify(state.list))
+            setDataToLocalStorage("List", state.list)
         },
         editTask:{
             prepare(id,newTask) {
@@ -26,14 +26,13 @@ const taskSlice = createSlice({
             },
         reducer(state,action) {
             state.list = state.list.map(item => item.id === action.payload.id ? action.payload.newTask : item)
-            setDataToLocalStorage("List",JSON.stringify(state.list))
+            setDataToLocalStorage("List", state.list)
         }},
         editCheck:{
             prepare(id,checked,status) {
                 return {payload:{id,checked,status}}
             },
-        reducer(state,action) {
-            // state.list = state.list.map(item => item.id === action.payload.id ? action.payload.checked : item)
+            reducer(state, action) {
           const item = state.list.find(item=>item.id === action.payload.id)
           item.checked = action.payload.checked,
           item.status = action.payload.status
