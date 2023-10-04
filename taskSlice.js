@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {   setDataToLocalStorage} from "./hooks/useLocalStorage"
 
-const storedData = JSON.parse(localStorage.getItem("List")) || []
+const storedData = localStorage.getItem("List")
 
 const initialState = {
-    list : JSON.parse(storedData) ,
+    list: storedData ? JSON.parse(storedData) : [],
 }
 
 const taskSlice = createSlice({
